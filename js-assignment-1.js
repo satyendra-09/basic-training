@@ -59,7 +59,26 @@ function secondLargest(array) {
   }
   
   // Problem 4: Complete the unflatten function that takes a JS Object, returns a JS Object in unflatten format
-  function unflatten(flatObject) {
+function unflatten(flatObject) {
     // Write your code here
+    return Object.keys(flatObject).reduce(function(result, key) {
+      var keys = key.split('.');
+      var currentNode = result;
+  
+      keys.forEach(function(subKey, index) {
+        if (!currentNode[subKey]) {
+          if (index === keys.length - 1) {
+            currentNode[subKey] = flatObject[key];
+          } else {
+            currentNode[subKey] = {};
+          }
+        }
+        currentNode = currentNode[subKey];
+      });
+  
+      return result;
+    }, {});
   }
+  
+  
   
